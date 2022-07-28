@@ -9,7 +9,7 @@ const userRouter = require("./routes/user.router");
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, SESSION_SECRET, REDIS_HOST } = require("./config/config");
 
 const redisClient = createClient({ legacyMode: true, url: `redis://${REDIS_HOST}` });
-redisClient.connect().then(console.log("redis connected")).catch(console.error);
+redisClient.connect().then(console.log("redis connect")).catch(console.error);
 
 const app = express();
 app.enable("trust proxy");
