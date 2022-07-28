@@ -11,7 +11,7 @@ services:
       - node-app
   node-app:
     build: .
-    image: node-app-image
+    image: davidpaucar/docker-node-app
     environment:
       - PORT=8080
     depends_on:
