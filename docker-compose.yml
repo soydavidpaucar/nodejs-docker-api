@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:1.23.1-alpine
+    ports:
+      - '8080:80'
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - node-app
+  node-app:
+    build: .
+    image: node-app-image
+    environment:
+      - PORT=8080
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:5.0.9
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=davidpaucar
+      - MONGO_INITDB_ROOT_PASSWORD=123
+    volumes:
+      - mongodb:/data/db
+
+  redis:
+    image: redis:7.0.4-alpine3.16
+
+volumes:
+  mongodb:

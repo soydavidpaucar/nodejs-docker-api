@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  nginx:
+    ports:
+      - '8080:80'
+  node-app:
+    build:
+      context: .
+      args:
+        - NODE_ENV=development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - MONGO_USER=davidpaucar
+      - MONGO_PASSWORD=123
+      - MONGO_IP=mongodb
+      - MONGO_PORT=27017
+      - SESSION_SECRET=|HvQ\-7ot51*##*6VEtiPh;{880=,{ZA5\jS:i(SBY}H-9[Z9D1#:Jt2PE6k;;J[
+    command: yarn dev
+
+  mongodb:
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=davidpaucar
+      - MONGO_INITDB_ROOT_PASSWORD=123
+
