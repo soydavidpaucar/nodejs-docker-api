@@ -12,9 +12,9 @@ const redisClient = createClient({ legacyMode: true, url: `redis://${REDIS_HOST}
 redisClient.connect().then(console.log("redis connected")).catch(console.error);
 
 const app = express();
+app.enable("trust proxy");
 app.use(cors());
 app.use(express.json());
-app.enable("trust proxy");
 app.use(
   session({
     store: new RedisStore({ client: redisClient }),
