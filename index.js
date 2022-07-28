@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const RedisStore = require("connect-redis")(session);
 const { createClient } = require("redis");
+const cors = require("cors");
 const postRouter = require("./routes/post.router");
 const userRouter = require("./routes/user.router");
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, SESSION_SECRET, REDIS_HOST } = require("./config/config");
@@ -11,6 +12,7 @@ const redisClient = createClient({ legacyMode: true, url: `redis://${REDIS_HOST}
 redisClient.connect().then(console.log("redis connected")).catch(console.error);
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.enable("trust proxy");
 app.use(
