@@ -16,6 +16,8 @@ app.use(
   session({
     store: new RedisStore({ client: redisClient }),
     secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
     cookie: {
       secure: false,
       httpOnly: true,
